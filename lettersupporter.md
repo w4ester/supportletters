@@ -64,7 +64,7 @@ Instead of asking busy professionals to write letters from scratch, they can now
 - All CVS contacts for Pharmacy Tech
 - BGE contacts for HVAC/Electrical/Renewable Energy
 
-**Week 2:** Email everyone else on the sign-up list systematically by industry cluster
+**now:** Email everyone else on the sign-up list systematically by industry cluster
 
 **Follow-up:** Call people who don't respond within 5 business days (as you suggested)
 
