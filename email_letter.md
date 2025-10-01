@@ -14,7 +14,7 @@ Hi Team,
 
 I'm going to **email everyone on the Business Review Sign-Up list** (all 152 contacts) with a link to our new **Maryland IRC Letter Generator Tool**.
 
-**Tool Link:** https://[your-github-username].github.io/maryland-irc-letters/
+**Tool Link:** https://w4ester.github.io/supportletters/
 
 ## 🎯 Why This Will Get Us Responses:
 
@@ -70,7 +70,7 @@ You previously expressed interest in supporting Maryland's Career & Technical Ed
 
 We created a simple online tool that generates professional letters of support in just 3-5 minutes:
 
-**🔗 https://[github-link]**
+**🔗 [https://[github-link]](https://w4ester.github.io/supportletters/)**
 
 **How it works:**
 1. Select the certification(s) your company values when hiring
@@ -86,7 +86,7 @@ The letter will be professionally formatted on your letterhead and emailed direc
 
 Can you take 3 minutes this week to help Maryland students?
 
-**Tool Link:** [github-link]
+**Tool Link:** [[github-link](https://w4ester.github.io/supportletters/)]
 
 Questions? Just reply to this email or call me at [your phone].
 
@@ -117,10 +117,6 @@ Maryland State Department of Education
 - "Your logo and info auto-populate on letterhead"
 - "One click sends it directly to MSDE"
 
-**For hesitant businesses:**
-- Offer to walk them through it on a screen share
-- Mention their competitors/peers who've already submitted
-- Emphasize the small time investment for big impact on students
 
 ## 🎯 Our Goal:
 
@@ -136,9 +132,9 @@ Please reach out if you:
 - Have suggestions to improve the tool
 - Want to coordinate on specific credentials
 
-Let's make this happen! We finally have a tool that removes the biggest barrier - **time and effort** - from businesses who want to help.
+We have a tool that removes a big barrier - **time and effort** - from businesses who want to help.
 
-Thank you all for your hard work on this critical initiative! 💪
+Thank you
 
 Best,
 [Your Name]
