@@ -50,15 +50,13 @@ Instead of asking busy professionals to write letters from scratch, they can now
 
 ## 📋 My Outreach Plan:
 
-**Week 1:** Email Tier 1 contacts (people who've already shown interest)
-- Melissa Daoulas (Video Production) - **already on the list!**
-- Brian Foltz (Engineering)
+**today:** Email Tier 1 contacts (people who've already shown interest)
+- Melissa D (Video Production) - **already on the list!**
+- Brian F (Engineering)
 - All CVS contacts for Pharmacy Tech
 - BGE contacts for HVAC/Electrical/Renewable Energy
 
-**Week 2:** Email everyone else on the sign-up list systematically by industry cluster
-
-**Follow-up:** Call people who don't respond within 5 business days (as you suggested)
+**today:** Email everyone else on the sign-up list systematically by industry cluster
 
 ## 📧 Draft Email to Businesses:
 
