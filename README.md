@@ -328,7 +328,7 @@ This tool was created by the Maryland State Department of Education for public u
 - ✅ 38+ letters collected (2 per IRC minimum)
 - ✅ 80%+ of letters meet MSDE requirements (100% with this tool)
 - ✅ 50%+ response rate from business contacts
-- ✅ 2-week turnaround time for letter collection
+- ✅ quick turnaround time for letter collection
 
 **Current Status:** Ready for deployment to 152 business contacts
 
