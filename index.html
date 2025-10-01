@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maryland IRC Support Letter Generator</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px}
+    .container{max-width:1200px;margin:0 auto;background:#fff;border-radius:15px;box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden}
+    .header{background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 100%);color:#fff;padding:30px;text-align:center}
+    .header h1{font-size:32px;margin-bottom:10px}
+    .header p{font-size:16px;opacity:.9}
+    .content{display:grid;grid-template-columns:400px 1fr;gap:0}
+    .sidebar{background:#f8fafc;padding:30px;border-right:2px solid #e2e8f0;max-height:800px;overflow-y:auto}
+    .main-content{padding:30px}
+    .form-group{margin-bottom:20px}
+    label{display:block;font-weight:600;color:#1e3a8a;margin-bottom:8px;font-size:14px}
+    select,input,textarea{width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:8px;font-size:14px;font-family:inherit;transition:.3s}
+    select:focus,input:focus,textarea:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+    textarea{resize:vertical;min-height:80px}
+    .logo-upload{border:2px dashed #cbd5e1;border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:.3s}
+    .logo-upload:hover{border-color:#3b82f6;background:#f1f5f9}
+    .logo-upload.has-logo{border-style:solid;border-color:#10b981}
+    .logo-preview{max-width:100%;max-height:100px;margin-top:10px;border-radius:4px}
+    .upload-text{color:#64748b;font-size:13px}
+    button{width:100%;padding:14px;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:.3s;margin-bottom:10px}
+    .btn-primary{background:linear-gradient(135deg,#10b981 0%,#059669 100%);color:#fff}
+    .btn-primary:hover,.btn-secondary:hover,.btn-email:hover,.btn-download:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,.15)}
+    .btn-secondary{background:linear-gradient(135deg,#3b82f6 0%,#2563eb 100%);color:#fff}
+    .btn-email{background:linear-gradient(135deg,#8b5cf6 0%,#7c3aed 100%);color:#fff}
+    .btn-download{background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%);color:#fff}
+    .letter-preview{background:#fff;border:2px solid #e2e8f0;border-radius:10px;padding:40px;min-height:600px;font-family:'Times New Roman',Times,serif;font-size:12pt;line-height:1.6;color:#000}
+    .letter-preview.empty{display:flex;align-items:center;justify-content:center;color:#94a3b8;font-style:italic;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+    .letterhead{text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:2px solid #e2e8f0}
+    .letterhead img{max-width:200px;max-height:80px;margin-bottom:10px}
+    .letterhead-text{font-size:11pt;color:#64748b}
+    .letter-date{margin-bottom:20px}
+    .letter-address{margin-bottom:20px}
+    .letter-body p{margin-bottom:15px;text-align:justify}
+    .letter-body ul{margin:15px 0 15px 30px}
+    .letter-body li{margin-bottom:8px}
+    .letter-signature{margin-top:30px}
+    .info-box{background:#eff6ff;border-left:4px solid #3b82f6;padding:15px;margin-bottom:20px;border-radius:5px}
+    .info-box p{color:#1e40af;font-size:13px;line-height:1.6}
+    .stats-box{background:#ecfdf5;border:2px solid #10b981;border-radius:8px;padding:15px;margin-bottom:20px}
+    .stats-box h4{color:#047857;font-size:14px;margin-bottom:10px}
+    .stat-item{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px}
+    .stat-label{color:#065f46;font-weight:600}
+    .stat-value{color:#047857;font-weight:700}
+    .editable-field{background:#fef3c7;padding:2px 4px;border-radius:3px;cursor:text}
+    .footnote{font-size:11px;color:#475569;margin-top:8px}
+    @media (max-width:968px){.content{grid-template-columns:1fr}.sidebar{max-height:none;border-right:none;border-bottom:2px solid #e2e8f0}}
+    @media print{
+      body{background:#fff;padding:0}
+      .container{box-shadow:none;max-width:100%}
+      .header,.sidebar{display:none}
+      .content{display:block}
+      .main-content{padding:0}
+      .letter-preview{border:none;padding:0}
+      button{display:none}
+    }
+    .hidden{display:none}
+    .success-message{background:#d1fae5;color:#065f46;padding:12px;border-radius:8px;margin-bottom:15px;text-align:center;font-weight:600}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎓 Maryland IRC Support Letter Generator</h1>
+      <p>Create Professional Support Letters with BLS Employment Data</p>
+    </div>
+
+    <div class="content">
+      <div class="sidebar">
+        <div class="info-box">
+          <p><strong>📊 MSDE Requirements:</strong></p>
+          <ul style="margin-top:8px;margin-left:20px;font-size:13px;line-height:1.8">
+            <li><strong>2 letters needed per IRC</strong> from different businesses</li>
+            <li>Letter must be on <strong>company letterhead</strong> (upload logo)</li>
+            <li>Must state you <strong>"look for this certification when hiring"</strong></li>
+            <li>One business can support <strong>multiple credentials</strong> in the same letter</li>
+            <li><strong>Submit to:</strong> occpcteprograms.msde@maryland.gov</li>
+          </ul>
+        </div>
+
+        <div class="form-group">
+          <label for="credential">Select Credential(s) (hold Ctrl/Cmd for multi-select):</label>
+          <select id="credential" multiple size="16">
+            <!-- Arts, Entertainment, and Design -->
+            <optgroup label="Arts, Entertainment, and Design — Animation & Game Design">
+              <option value="acu_3d_animation">Autodesk Certified User in 3D Animation</option>
+              <option value="acu_maya">Autodesk Certified User in Maya</option>
+            </optgroup>
+            <optgroup label="Arts, Entertainment, and Design — Video and Audio Production">
+              <option value="apple_fcp">Apple Certified Pro in Final Cut Pro</option>
+            </optgroup>
+
+            <!-- Digital Technology -->
+            <optgroup label="Digital Technology — Machine Learning and Data Science">
+              <option value="azure_ds">Microsoft Certified: Azure Data Scientist Associate</option>
+              <option value="comptia_data_plus">CompTIA Data+</option>
+            </optgroup>
+
+            <!-- Health and Human Services -->
+            <optgroup label="Health and Human Services — Dental Assistant">
+              <option value="danb_rhs">DANB Radiation Health and Safety (RHS)</option>
+            </optgroup>
+            <optgroup label="Health and Human Services — Physical Rehabilitation">
+              <option value="pt_tech">Physical Therapy Technician</option>
+            </optgroup>
+
+            <!-- Financial / Management -->
+            <optgroup label="Financial Services — Financial Services and Accounting">
+              <option value="excel_expert">Microsoft Excel Expert 365/2019</option>
+            </optgroup>
+            <optgroup label="Management and Entrepreneurship — Management and Entrepreneurship">
+              <option value="pmi_pm_ready">PMI Project Management Ready</option>
+            </optgroup>
+
+            <!-- Public Service and Safety -->
+            <optgroup label="Public Service and Safety — Emergency Response">
+              <option value="cert">Community Emergency Response Team (CERT)</option>
+              <option value="fema_fundamentals">FEMA IS‑230: Fundamentals of Emergency Management</option>
+            </optgroup>
+
+            <!-- Supply Chain and Transportation -->
+            <optgroup label="Supply Chain and Transportation — Medium‑Heavy Truck">
+              <option value="ase_pro_series">ASE Entry‑Level: Medium/Heavy Truck – Professional Series</option>
+              <option value="ase_t1">ASE T1 – Gasoline Engines</option>
+              <option value="ase_t2">ASE T2 – Diesel Engines</option>
+              <option value="ase_t3">ASE T3 – Drive Train</option>
+              <option value="ase_t4">ASE T4 – Brakes</option>
+              <option value="ase_t5">ASE T5 – Suspension &amp; Steering</option>
+              <option value="ase_t6">ASE T6 – Electrical/Electronic Systems</option>
+              <option value="ase_t7">ASE T7 – Heating, Ventilation &amp; A/C (HVAC)</option>
+              <option value="ase_t8">ASE T8 – Preventive Maintenance Inspection</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div id="statsBox" class="stats-box hidden">
+          <h4>📈 Career Outlook Data (U.S.)</h4>
+          <div class="stat-item"><span class="stat-label">Annual Openings:</span><span class="stat-value" id="statOpenings">-</span></div>
+          <div class="stat-item"><span class="stat-label">Median Wage:</span><span class="stat-value" id="statWage">-</span></div>
+          <div class="stat-item"><span class="stat-label">Growth (2024–34):</span><span class="stat-value" id="statGrowth">-</span></div>
+          <div class="footnote" id="statFootnote"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Company Logo (Optional):</label>
+          <div class="logo-upload" id="logoUpload" onclick="document.getElementById('logoInput').click()">
+            <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="handleLogoUpload(event)">
+            <div id="logoPreviewContainer">
+              <p class="upload-text">📤 Click to upload logo</p>
+              <p class="upload-text" style="font-size:11px;margin-top:5px">PNG, JPG (max 2MB)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="companyName">Company/Organization:</label>
+          <input type="text" id="companyName" placeholder="e.g., Tech Solutions Inc.">
+        </div>
+        <div class="form-group">
+          <label for="companyAddress">Address (Optional):</label>
+          <textarea id="companyAddress" placeholder="123 Main Street&#10;City, State ZIP"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="contactName">Your Name:</label>
+          <input type="text" id="contactName" placeholder="e.g., John Smith">
+        </div>
+        <div class="form-group">
+          <label for="contactTitle">Your Title:</label>
+          <input type="text" id="contactTitle" placeholder="e.g., Chief Technology Officer">
+        </div>
+        <div class="form-group">
+          <label for="contactEmail">Your Email:</label>
+          <input type="email" id="contactEmail" placeholder="e.g., john.smith@company.com">
+        </div>
+        <div class="form-group">
+          <label for="contactPhone">Your Phone (Optional):</label>
+          <input type="tel" id="contactPhone" placeholder="e.g., (555) 123-4567">
+        </div>
+
+        <button class="btn-primary" onclick="generateLetter()">📝 Generate Letter</button>
+        <button class="btn-secondary" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+        <button class="btn-email" onclick="sendEmail()">📧 Email Letter</button>
+        <button class="btn-download" onclick="downloadPDF()">💾 Download as PDF</button>
+      </div>
+
+      <div class="main-content">
+        <div id="successMessage" class="success-message hidden">✅ Letter generated successfully!</div>
+        <div id="letterPreview" class="letter-preview empty">
+          <p>👈 Fill out the form and click “Generate Letter” to create your customized support letter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentLogoDataUrl = null;
+
+    // --- BLS-backed credential catalog (ONLY the items from your IRC list) ---
+    // Each credential maps to a relevant BLS occupation for wage/growth/openings.
+    const credentialData = {
+      // Arts, Entertainment, and Design — Animation & Game Design
+      acu_3d_animation: {
+        fullTitle: "Autodesk Certified User in 3D Animation",
+        cluster: "Arts, Entertainment, and Design",
+        program: "Animation & Game Design",
+        occupation: "Special effects artists and animators",
+        stats: { openings: "≈ 5,000", wage: "$99,800", growth: "2%" },
+        footnote: "Openings/wage/growth from BLS OOH.",
+        blsUrl: "https://www.bls.gov/ooh/arts-and-design/multimedia-artists-and-animators.htm",
+        bullets: [
+          "Foundational skills in 3D modeling, rigging, animation, and rendering",
+          "Familiarity with industry-standard workflows in games, film, and VFX",
+          "Portfolio‑driven readiness for entry‑level production tasks"
+        ]
+      },
+      acu_maya: {
+        fullTitle: "Autodesk Certified User in Maya",
+        cluster: "Arts, Entertainment, and Design",
+        program: "Animation & Game Design",
+        occupation: "Special effects artists and animators",
+        stats: { openings: "≈ 5,000", wage: "$99,800", growth: "2%" },
+        footnote: "Openings/wage/growth from BLS OOH.",
+        blsUrl: "https://www.bls.gov/ooh/arts-and-design/multimedia-artists-and-animators.htm",
+        bullets: [
+          "3D modeling, animation, and rendering in Autodesk Maya",
+          "Pipeline‑aware workflows for film, TV, and game production",
+          "Efficiency with keyframes, timelines, and asset management"
+        ]
+      },
+
+      // Arts, Entertainment, and Design — Video & Audio Production
+      apple_fcp: {
+        fullTitle: "Apple Certified Pro in Final Cut Pro",
+        cluster: "Arts, Entertainment, and Design",
+        program: "Video and Audio Production",
+        occupation: "Film & video editors (BLS groups openings with camera operators)",
+        stats: { openings: "≈ 6,400 (editors + camera ops)", wage: "$70,980", growth: "4% (editors)" },
+        footnote: "Openings are for editors + camera operators (BLS combined group).",
+        blsUrl: "https://www.bls.gov/ooh/media-and-communication/film-and-video-editors-and-camera-operators.htm",
+        bullets: [
+          "Professional video editing, color correction, and audio mixing",
+          "Efficient turnaround on deadline‑driven projects",
+          "Conforms to industry workflows for broadcast and digital"
+        ]
+      },
+
+      // Digital Technology — ML & Data Science
+      azure_ds: {
+        fullTitle: "Microsoft Certified: Azure Data Scientist Associate",
+        cluster: "Digital Technology",
+        program: "Machine Learning and Data Science",
+        occupation: "Data scientists",
+        stats: { openings: "≈ 23,400", wage: "$112,590", growth: "34%" },
+        footnote: "Among the fastest‑growing occupations (BLS).",
+        blsUrl: "https://www.bls.gov/ooh/math/data-scientists.htm",
+        bullets: [
+          "Model training, evaluation, and deployment with Azure ML",
+          "Applied statistics, feature engineering, and MLOps concepts",
+          "Business impact through data‑driven recommendations"
+        ]
+      },
+      comptia_data_plus: {
+        fullTitle: "CompTIA Data+",
+        cluster: "Digital Technology",
+        program: "Machine Learning and Data Science",
+        occupation: "Data scientists / data analysts pipeline",
+        stats: { openings: "≈ 23,400", wage: "$112,590", growth: "34%" },
+        footnote: "Mapped to data‑science/analytics career track (BLS data scientists).",
+        blsUrl: "https://www.bls.gov/ooh/math/data-scientists.htm",
+        bullets: [
+          "Data preparation, querying, and exploratory analysis",
+          "Descriptive statistics & visualization for decision support",
+          "Communication of findings to business stakeholders"
+        ]
+      },
+
+      // Health and Human Services — Dental Assistant
+      danb_rhs: {
+        fullTitle: "DANB Radiation Health and Safety (RHS)",
+        cluster: "Health and Human Services",
+        program: "Dental Assistant",
+        occupation: "Dental assistants",
+        stats: { openings: "≈ 52,900", wage: "$47,300", growth: "6%" },
+        footnote: "BLS OOH; state scope of practice varies.",
+        blsUrl: "https://www.bls.gov/ooh/healthcare/dental-assistants.htm",
+        bullets: [
+          "Radiation safety and dental imaging protocols",
+          "Chairside assisting and infection control",
+          "Patient prep, records, and operatory workflow"
+        ]
+      },
+
+      // Health and Human Services — Physical Rehabilitation
+      pt_tech: {
+        fullTitle: "Physical Therapy Technician",
+        cluster: "Health and Human Services",
+        program: "Physical Rehabilitation",
+        occupation: "Physical therapist aides (with combined openings for assistants + aides)",
+        stats: { openings: "≈ 26,400 (assistants + aides)", wage: "$34,520 (aides)", growth: "3% (aides)" },
+        footnote: "BLS reports openings combined for assistants + aides; wage/growth shown for aides.",
+        blsUrl: "https://www.bls.gov/ooh/healthcare/physical-therapist-assistants-and-aides.htm",
+        bullets: [
+          "Clinic prep, equipment setup, and patient transport",
+          "Support for treatment plans under PT/PTA supervision",
+          "Safety, sanitation, and documentation basics"
+        ]
+      },
+
+      // Financial Services — Financial Services and Accounting
+      excel_expert: {
+        fullTitle: "Microsoft Excel Expert 365/2019",
+        cluster: "Financial Services",
+        program: "Financial Services and Accounting",
+        occupation: "Financial analysts",
+        stats: { openings: "≈ 29,900", wage: "$101,350", growth: "6%" },
+        footnote: "Using BLS ‘financial and investment analysts’.",
+        blsUrl: "https://www.bls.gov/ooh/business-and-financial/financial-analysts.htm",
+        bullets: [
+          "Advanced formulas, PivotTables, Power Query, and automation",
+          "Financial modeling and analysis for decision support",
+          "Data integrity, auditability, and professional reporting"
+        ]
+      },
+
+      // Management and Entrepreneurship
+      pmi_pm_ready: {
+        fullTitle: "PMI Project Management Ready",
+        cluster: "Management and Entrepreneurship",
+        program: "Management and Entrepreneurship",
+        occupation: "Project management specialists",
+        stats: { openings: "≈ 78,200", wage: "$100,750", growth: "6%" },
+        footnote: "BLS OOH for project management specialists.",
+        blsUrl: "https://www.bls.gov/ooh/business-and-financial/project-management-specialists.htm",
+        bullets: [
+          "Foundations in scope, schedule, budget, and risk",
+          "Familiarity with Agile/waterfall concepts and artifacts",
+          "Team communication and stakeholder coordination"
+        ]
+      },
+
+      // Public Service and Safety — Emergency Response
+      cert: {
+        fullTitle: "Community Emergency Response Team (CERT)",
+        cluster: "Public Service and Safety",
+        program: "Emergency Response",
+        occupation: "Emergency management directors (baseline readiness)",
+        stats: { openings: "≈ 1,000", wage: "$86,130", growth: "3%" },
+        footnote: "BLS OOH for emergency management directors.",
+        blsUrl: "https://www.bls.gov/ooh/management/emergency-management-directors.htm",
+        bullets: [
+          "ICS/NIMS familiarity and community response protocols",
+          "Basic disaster medical ops, fire safety, light search & rescue",
+          "Team safety, communication, and volunteer coordination"
+        ]
+      },
+      fema_fundamentals: {
+        fullTitle: "FEMA IS‑230: Fundamentals of Emergency Management",
+        cluster: "Public Service and Safety",
+        program: "Emergency Response",
+        occupation: "Emergency management directors (baseline knowledge)",
+        stats: { openings: "≈ 1,000", wage: "$86,130", growth: "3%" },
+        footnote: "BLS OOH for emergency management directors.",
+        blsUrl: "https://www.bls.gov/ooh/management/emergency-management-directors.htm",
+        bullets: [
+          "Principles of mitigation, preparedness, response, recovery",
+          "EM roles/responsibilities and interagency coordination",
+          "Risk assessment and planning fundamentals"
+        ]
+      },
+
+      // Supply Chain & Transportation — Medium‑Heavy Truck (ASE)
+      ase_pro_series: mkAse("ASE Entry‑Level: Medium/Heavy Truck – Professional Series"),
+      ase_t1:        mkAse("ASE T1 – Gasoline Engines"),
+      ase_t2:        mkAse("ASE T2 – Diesel Engines"),
+      ase_t3:        mkAse("ASE T3 – Drive Train"),
+      ase_t4:        mkAse("ASE T4 – Brakes"),
+      ase_t5:        mkAse("ASE T5 – Suspension & Steering"),
+      ase_t6:        mkAse("ASE T6 – Electrical/Electronic Systems"),
+      ase_t7:        mkAse("ASE T7 – Heating, Ventilation & A/C (HVAC)"),
+      ase_t8:        mkAse("ASE T8 – Preventive Maintenance Inspection"),
+    };
+
+    function mkAse(name){
+      return {
+        fullTitle: name,
+        cluster: "Supply Chain and Transportation",
+        program: "Medium‑Heavy Truck",
+        occupation: "Diesel service technicians and mechanics",
+        stats: { openings: "≈ 26,500", wage: "$60,640", growth: "2%" },
+        footnote: "BLS OOH for diesel service technicians and mechanics.",
+        blsUrl: "https://www.bls.gov/ooh/installation-maintenance-and-repair/diesel-service-technicians-and-mechanics.htm",
+        bullets: [
+          "Diagnosis and repair aligned to medium/heavy truck systems",
+          "Safety, service documentation, and preventive maintenance",
+          "Readiness to contribute with reduced onboarding time"
+        ]
+      };
+    }
+
+    // --- Logo upload ---
+    function handleLogoUpload(event){
+      const file = event.target.files[0];
+      if (!file) return;
+      if (file.size > 2 * 1024 * 1024){ alert("File size must be less than 2MB"); return; }
+      const reader = new FileReader();
+      reader.onload = (e)=>{
+        currentLogoDataUrl = e.target.result;
+        document.getElementById('logoPreviewContainer').innerHTML =
+          `<img src="${e.target.result}" class="logo-preview" alt="Logo Preview">
+           <p class="upload-text" style="margin-top:10px;">✓ Logo uploaded</p>`;
+        document.getElementById('logoUpload').classList.add('has-logo');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // --- Letter generation helpers ---
+    function buildStandardLetter(cred, data){
+      const today = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+      const bullets = (cred.bullets||[]).map(b=>`<li>${b}</li>`).join('');
+      const footnote = cred.footnote ? `<p style="font-size:11px;color:#475569;margin-top:4px;">Source: U.S. Bureau of Labor Statistics, OOH – <a href="${cred.blsUrl}" target="_blank" rel="noopener">link</a>.</p>` : '';
+
+      return `
+<div class="letterhead">
+  ${data.logo ? `<img src="${data.logo}" alt="Company Logo">` : ""}
+  <h2>${data.company}</h2>
+  ${data.address ? `<p class="letterhead-text">${data.address.replace(/\n/g,"<br>")}</p>` : ""}
+</div>
+
+<div class="letter-date">${today}</div>
+
+<div class="letter-address">
+  <p>Maryland Blueprint CTE Committee<br>
+  Maryland State Department of Education<br>
+  200 W. Baltimore Street<br>
+  Baltimore, MD 21201</p>
+</div>
+
+<p>Dear Members of the Maryland Blueprint CTE Committee,</p>
+
+<div class="letter-body">
+  <p>I am writing on behalf of <strong>${data.company}</strong> to express our support for recognition of the <strong>${cred.fullTitle}</strong> as an Industry‑Recognized Credential (IRC) in Maryland’s public schools.</p>
+
+  <p><strong>Career outlook:</strong> According to the U.S. Bureau of Labor Statistics, <strong>${cred.occupation}</strong> have about <strong>${cred.stats.openings}</strong> annual openings nationally, a median annual wage of <strong>${cred.stats.wage}</strong>, and projected <strong>${cred.stats.growth}</strong> employment growth from 2024–2034.</p>
+  ${footnote}
+
+  <p>${data.company} operates in ${cred.cluster.toLowerCase()} where validated, job‑ready skills are essential to our work. Candidates who have earned <strong>${cred.fullTitle}</strong> arrive with relevant competencies and require less ramp‑up time.</p>
+
+  <p>At ${data.company}, individuals holding <strong>${cred.fullTitle}</strong> typically demonstrate:</p>
+  <ul>${bullets}</ul>
+
+  <p><strong>We actively look for the ${cred.fullTitle} credential when hiring.</strong> This credential provides immediate validation of job‑relevant skills and positively influences our selection decisions.</p>
+
+  <p>Recognizing this credential as an IRC will strengthen Maryland’s talent pipeline, align CTE programs with industry expectations, and improve graduate readiness for high‑priority roles.</p>
+
+  <p>Thank you for your consideration.</p>
+</div>
+
+<div class="letter-signature">
+  <p>Sincerely,</p>
+  <p><strong>${data.contactName}</strong><br>
+  ${data.contactTitle}<br>
+  ${data.company}<br>
+  ${data.contactEmail}${data.contactPhone ? "<br>"+data.contactPhone : ""}</p>
+</div>
+      `;
+    }
+
+    function generateMultiCredentialLetter(keys, data){
+      const items = keys.map(k => credentialData[k]).filter(Boolean);
+      const list = items.map(c => `<li><strong>${c.fullTitle}</strong> — ${c.program} (${c.cluster})</li>`).join('');
+      return `
+<div class="letterhead">
+  ${data.logo ? `<img src="${data.logo}" alt="Company Logo">` : ""}
+  <h2>${data.company}</h2>
+  ${data.address ? `<p class="letterhead-text">${data.address.replace(/\n/g,"<br>")}</p>` : ""}
+</div>
+
+<div class="letter-date">${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</div>
+
+<div class="letter-address">
+  <p>Maryland Blueprint CTE Committee<br>
+  Maryland State Department of Education<br>
+  200 W. Baltimore Street<br>
+  Baltimore, MD 21201</p>
+</div>
+
+<p>Dear Members of the Maryland Blueprint CTE Committee,</p>
+
+<div class="letter-body">
+  <p>I am writing on behalf of <strong>${data.company}</strong> to support recognition of the following Industry‑Recognized Credentials (IRCs) in Maryland’s public schools:</p>
+  <ul>${list}</ul>
+
+  <p>We operate in sectors where these credentials directly align with workplace tasks. Candidates who earn these credentials demonstrate job‑ready competencies and consistently perform at a higher standard.</p>
+
+  <p><strong>We actively look for these certifications when hiring.</strong> Recognizing them as IRCs will align CTE outcomes with employer needs and improve Maryland’s workforce readiness.</p>
+
+  <p>Thank you for your consideration.</p>
+</div>
+
+<div class="letter-signature">
+  <p>Sincerely,</p>
+  <p><strong>${data.contactName}</strong><br>
+  ${data.contactTitle}<br>
+  ${data.company}<br>
+  ${data.contactEmail}${data.contactPhone ? "<br>"+data.contactPhone : ""}</p>
+</div>`;
+    }
+
+    // --- Main generate handler ---
+    function generateLetter(){
+      const sel = document.getElementById('credential');
+      const keys = Array.from(sel.selectedOptions).map(o => o.value);
+      const company = document.getElementById('companyName').value.trim();
+      const contactName = document.getElementById('contactName').value.trim();
+      const contactTitle = document.getElementById('contactTitle').value.trim();
+      const contactEmail = document.getElementById('contactEmail').value.trim();
+
+      if (keys.length === 0){ alert('Please select at least one credential'); return; }
+      if (!company || !contactName || !contactTitle || !contactEmail){
+        alert('Please fill in all required fields (Company, Name, Title, Email)'); return;
+      }
+
+      const letterData = {
+        logo: currentLogoDataUrl,
+        company,
+        address: document.getElementById('companyAddress').value.trim(),
+        contactName, contactTitle, contactEmail,
+        contactPhone: document.getElementById('contactPhone').value.trim()
+      };
+
+      const preview = document.getElementById('letterPreview');
+      let html;
+
+      if (keys.length === 1){
+        const cred = credentialData[keys[0]];
+        if (!cred){ alert('Template not found for selected credential'); return; }
+        html = buildStandardLetter(cred, letterData);
+
+        // Stats box
+        document.getElementById('statOpenings').textContent = cred.stats.openings;
+        document.getElementById('statWage').textContent = cred.stats.wage;
+        document.getElementById('statGrowth').textContent = cred.stats.growth;
+        document.getElementById('statFootnote').textContent = cred.footnote || "";
+        document.getElementById('statsBox').classList.remove('hidden');
+      } else {
+        html = generateMultiCredentialLetter(keys, letterData);
+        document.getElementById('statsBox').classList.add('hidden');
+      }
+
+      preview.innerHTML = html;
+      preview.classList.remove('empty');
+
+      const success = document.getElementById('successMessage');
+      success.textContent = keys.length > 1 ? `✅ Combined letter for ${keys.length} credentials generated!` : '✅ Letter generated successfully!';
+      success.classList.remove('hidden');
+      setTimeout(()=>success.classList.add('hidden'), 3000);
+
+      if (window.innerWidth <= 968){ preview.scrollIntoView({behavior:'smooth'}); }
+    }
+
+    // Update stats live on selection
+    document.getElementById('credential').addEventListener('change', function(){
+      const keys = Array.from(this.selectedOptions).map(o => o.value);
+      if (keys.length === 1 && credentialData[keys[0]]){
+        const c = credentialData[keys[0]];
+        document.getElementById('statOpenings').textContent = c.stats.openings;
+        document.getElementById('statWage').textContent = c.stats.wage;
+        document.getElementById('statGrowth').textContent = c.stats.growth;
+        document.getElementById('statFootnote').textContent = c.footnote || "";
+        document.getElementById('statsBox').classList.remove('hidden');
+      } else {
+        document.getElementById('statsBox').classList.add('hidden');
+      }
+    });
+
+    // Copy / email / download
+    function copyToClipboard(){
+      const preview = document.getElementById('letterPreview');
+      if (preview.classList.contains('empty')){ alert('Please generate a letter first'); return; }
+      const text = preview.innerText;
+      navigator.clipboard.writeText(text).then(()=>alert('✓ Letter copied to clipboard!'))
+        .catch(()=>alert('Failed to copy. Please select and copy manually.'));
+    }
+
+    function sendEmail(){
+      const sel = document.getElementById('credential');
+      const keys = Array.from(sel.selectedOptions).map(o => o.value);
+      const preview = document.getElementById('letterPreview');
+      if (keys.length === 0 || preview.classList.contains('empty')){ alert('Please generate a letter first'); return; }
+
+      let subject;
+      if (keys.length === 1){
+        subject = `Letter of Support: ${credentialData[keys[0]].fullTitle}`;
+      } else {
+        subject = `Letter of Support: ${keys.map(k => credentialData[k]?.fullTitle || k).join(', ')}`;
+      }
+      const body = preview.innerText;
+      const mailto = `mailto:occpcteprograms.msde@maryland.gov?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+    }
+
+    function downloadPDF(){
+      const preview = document.getElementById('letterPreview');
+      if (preview.classList.contains('empty')){ alert('Please generate a letter first'); return; }
+      alert('📄 To save as PDF:\n\n1) Click OK to open the print dialog\n2) Choose “Save as PDF”\n3) Click Save\n\nYour logo (if uploaded) will be included.');
+      window.print();
+    }
+  </script>
+</body>
+</html>
