@@ -494,6 +494,135 @@
         let currentLogoDataUrl = null;
         
         const credentialData = {
+            autodesk_maya: {
+                title: "Autodesk Certified: Maya",
+                fullTitle: "Autodesk Certified User in Maya",
+                cluster: "Arts, Media & Communication",
+                stats: { openings: "5,000", wage: "$99,800", growth: "2%" },
+                occupation: "special effects artists and animators",
+                template: (data) => `
+<div class="letterhead">
+    ${data.logo ? `<img src="${data.logo}" alt="Company Logo">` : ''}
+    <h2>${data.company}</h2>
+    ${data.address ? `<p class="letterhead-text">${data.address.replace(/\n/g, '<br>')}</p>` : ''}
+</div>
+
+<div class="letter-date">
+    ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+</div>
+
+<div class="letter-address">
+    <p>Maryland Blueprint CTE Committee<br>
+    Maryland State Department of Education<br>
+    200 W. Baltimore Street<br>
+    Baltimore, MD 21201</p>
+</div>
+
+<p>Dear Members of the Maryland Blueprint CTE Committee,</p>
+
+<div class="letter-body">
+    <p>I am writing on behalf of <strong>${data.company}</strong> to express our support for the recognition of the <strong>Autodesk Certified User in Maya</strong> as an Industry-Recognized Credential (IRC) in Maryland's public schools.</p>
+    
+    <p><strong>STRONG CAREER OUTLOOK:</strong> According to the U.S. Bureau of Labor Statistics 2024 employment projections, special effects artists and animators—the primary career pathway for Maya professionals—have approximately <strong>5,000 annual job openings</strong> nationally with a median annual wage of <strong>$99,800</strong> (more than double the national median wage of $49,500). With 2% projected growth from 2024-2034, this field offers Maryland students access to high-wage creative technology careers. Maya is the industry standard for animation, visual effects, and game development across film, television, and gaming industries.</p>
+    
+    <p>${data.company} operates in the animation/media/game development sector, where Maya proficiency is essential to our production pipeline. We utilize Maya for character animation, visual effects, and 3D asset creation, and professionals with this certification demonstrate immediate workplace readiness.</p>
+    
+    <p>At ${data.company}, individuals holding the Autodesk Certified User in Maya demonstrate:</p>
+    <ul>
+        <li>Advanced technical proficiency in 3D animation, modeling, and visual effects</li>
+        <li>Industry-standard workflows used in film, television, and game production</li>
+        <li>Proven commitment to professional development in animation technology</li>
+    </ul>
+    
+    <p><strong>We actively look for the Autodesk Certified User in Maya certification when hiring</strong> for positions requiring 3D animation and visual effects capabilities. This credential provides immediate validation of candidate capabilities and significantly influences our hiring decisions.</p>
+    
+    <p>Recognizing this credential as an IRC will:</p>
+    <ul>
+        <li>Strengthen Maryland's talent pipeline for high-wage animation and game design careers</li>
+        <li>Align CTE programs with industry-standard tools used in professional studios</li>
+        <li>Support Maryland's economic development in digital media and entertainment sectors</li>
+        <li>Provide students with credentials valued across film, television, gaming, and advertising industries</li>
+    </ul>
+    
+    <p>Students who earn the Autodesk Certified User in Maya are positioned to succeed in careers within <strong>Arts, Media & Communication</strong>. We respectfully encourage the Committee to include this credential among Maryland's approved IRCs.</p>
+    
+    <p>Thank you for your consideration.</p>
+</div>
+
+<div class="letter-signature">
+    <p>Sincerely,</p>
+    <p><strong>${data.contactName}</strong><br>
+    ${data.contactTitle}<br>
+    ${data.company}<br>
+    ${data.contactEmail}${data.contactPhone ? '<br>' + data.contactPhone : ''}</p>
+</div>
+`
+            },
+            excel_expert: {
+                title: "Microsoft Excel Expert",
+                fullTitle: "Microsoft Excel Expert 365/2019",
+                cluster: "Financial Services",
+                stats: { openings: "78,000+", wage: "$75,000+", growth: "6%" },
+                occupation: "financial analysts and business professionals",
+                template: (data) => `
+<div class="letterhead">
+    ${data.logo ? `<img src="${data.logo}" alt="Company Logo">` : ''}
+    <h2>${data.company}</h2>
+    ${data.address ? `<p class="letterhead-text">${data.address.replace(/\n/g, '<br>')}</p>` : ''}
+</div>
+
+<div class="letter-date">
+    ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+</div>
+
+<div class="letter-address">
+    <p>Maryland Blueprint CTE Committee<br>
+    Maryland State Department of Education<br>
+    200 W. Baltimore Street<br>
+    Baltimore, MD 21201</p>
+</div>
+
+<p>Dear Members of the Maryland Blueprint CTE Committee,</p>
+
+<div class="letter-body">
+    <p>I am writing on behalf of <strong>${data.company}</strong> to express our support for the recognition of the <strong>Microsoft Excel Expert 365/2019</strong> certification as an Industry-Recognized Credential (IRC) in Maryland's public schools.</p>
+    
+    <p><strong>ESSENTIAL BUSINESS SKILL:</strong> Excel expertise is foundational across virtually all business sectors. According to industry research, advanced Excel skills command salary premiums and are among the most sought-after business competencies. Financial analysts, data analysts, business analysts, and project managers all rely heavily on Excel for data analysis, financial modeling, and business intelligence. With the growing emphasis on data-driven decision-making, Excel proficiency has become more critical than ever.</p>
+    
+    <p>${data.company} operates in the financial services/accounting/business sector, where Excel expertise is fundamental to our daily operations. We utilize Excel for financial analysis, reporting, data visualization, and business modeling, and professionals with expert-level certification demonstrate the advanced capabilities we require.</p>
+    
+    <p>At ${data.company}, individuals holding Microsoft Excel Expert 365/2019 certification demonstrate:</p>
+    <ul>
+        <li>Advanced proficiency in complex formulas, functions, and data analysis tools</li>
+        <li>Expertise in PivotTables, Power Query, macros, and automation capabilities</li>
+        <li>Professional financial modeling and data visualization skills</li>
+        <li>Proven ability to solve complex business problems using Excel</li>
+    </ul>
+    
+    <p><strong>We actively look for Microsoft Excel Expert certification when hiring</strong> for positions requiring financial analysis, data analysis, and business intelligence capabilities. This credential provides immediate validation of advanced Excel competency and significantly influences our hiring decisions for business roles.</p>
+    
+    <p>Recognizing this credential as an IRC will:</p>
+    <ul>
+        <li>Strengthen Maryland's talent pipeline for business, finance, and analytical careers</li>
+        <li>Align CTE programs with essential workplace technology skills valued across all industries</li>
+        <li>Support Maryland students in accessing diverse career pathways in business and finance</li>
+        <li>Provide students with portable, universally-recognized credentials that transcend industry boundaries</li>
+    </ul>
+    
+    <p>Students who earn Microsoft Excel Expert 365/2019 certification are positioned to succeed in careers within <strong>Financial Services</strong> and across all business sectors. We respectfully encourage the Committee to include this credential among Maryland's approved IRCs.</p>
+    
+    <p>Thank you for your consideration.</p>
+</div>
+
+<div class="letter-signature">
+    <p>Sincerely,</p>
+    <p><strong>${data.contactName}</strong><br>
+    ${data.contactTitle}<br>
+    ${data.company}<br>
+    ${data.contactEmail}${data.contactPhone ? '<br>' + data.contactPhone : ''}</p>
+</div>
+`
+            },
             autodesk: {
                 title: "Autodesk Certified Professional: 3ds Max",
                 fullTitle: "Autodesk Certified Professional: 3ds Max",
