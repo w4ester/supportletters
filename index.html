@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maryland IRC Support Letter Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 0;
+        }
+        
+        .sidebar {
+            background: #f8fafc;
+            padding: 30px;
+            border-right: 2px solid #e2e8f0;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        select, input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .logo-upload {
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .logo-upload:hover {
+            border-color: #3b82f6;
+            background: #f1f5f9;
+        }
+        
+        .logo-upload.has-logo {
+            border-style: solid;
+            border-color: #10b981;
+        }
+        
+        .logo-preview {
+            max-width: 100%;
+            max-height: 100px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        
+        .upload-text {
+            color: #64748b;
+            font-size: 13px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-email {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+        }
+        
+        .btn-email:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+        
+        .btn-download {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+        
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        .letter-preview {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 40px;
+            min-height: 600px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #000;
+        }
+        
+        .letter-preview.empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-style: italic;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .letterhead {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .letterhead img {
+            max-width: 200px;
+            max-height: 80px;
+            margin-bottom: 10px;
+        }
+        
+        .letterhead-text {
+            font-size: 11pt;
+            color: #64748b;
+        }
+        
+        .letter-date {
+            margin-bottom: 20px;
+        }
+        
+        .letter-address {
+            margin-bottom: 20px;
+        }
+        
+        .letter-body p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .letter-body ul {
+            margin: 15px 0 15px 30px;
+        }
+        
+        .letter-body li {
+            margin-bottom: 8px;
+        }
+        
+        .letter-signature {
+            margin-top: 30px;
+        }
+        
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .info-box p {
+            color: #1e40af;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .stats-box {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stats-box h4 {
+            color: #047857;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .stat-label {
+            color: #065f46;
+            font-weight: 600;
+        }
+        
+        .stat-value {
+            color: #047857;
+            font-weight: 700;
+        }
+        
+        .editable-field {
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 3px;
+            cursor: text;
+        }
+        
+        @media (max-width: 968px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                max-height: none;
+                border-right: none;
+                border-bottom: 2px solid #e2e8f0;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            
+            .header, .sidebar {
+                display: none;
+            }
+            
+            .content {
+                display: block;
+            }
+            
+            .main-content {
+                padding: 0;
+            }
+            
+            .letter-preview {
+                border: none;
+                padding: 0;
+            }
+            
+            button {
+                display: none;
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Maryland IRC Support Letter Generator</h1>
+            <p>Create Professional Support Letters with BLS Employment Data</p>
+        </div>
+        
+        <div class="content">
+            <div class="sidebar">
+                <div class="info-box">
+                    <p><strong>📊 MSDE Requirements:</strong></p>
+                    <ul style="margin-top: 8px; margin-left: 20px; font-size: 13px; line-height: 1.8;">
+                        <li><strong>2 letters needed per IRC</strong> from different businesses</li>
+                        <li>Letter must be on <strong>company letterhead</strong> (upload logo above)</li>
+                        <li>Must state you <strong>"look for this certification when hiring"</strong></li>
+                        <li>One business can support <strong>multiple credentials</strong> in same letter</li>
+                        <li><strong>Example:</strong> ASE can list all 8 truck certifications in one letter</li>
+                    </ul>
+                </div>
+                
+                <div class="form-group">
+                    <label for="credential">Select Credential(s):</label>
+                    <select id="credential" multiple size="8">
+                        <optgroup label="Creative & Design">
+                            <option value="autodesk">Autodesk Certified: 3ds Max</option>
+                            <option value="finalcut">Apple Certified: Final Cut Pro</option>
+                        </optgroup>
+                        <optgroup label="Information Technology">
+                            <option value="azure">Azure Data Scientist Associate</option>
+                            <option value="comptia_a">CompTIA A+</option>
+                            <option value="comptia_network">CompTIA Network+</option>
+                            <option value="comptia_security">CompTIA Security+</option>
+                            <option value="comptia_cloud">CompTIA Cloud+</option>
+                            <option value="comptia_data">CompTIA Data+</option>
+                            <option value="aws_practitioner">AWS Cloud Practitioner</option>
+                            <option value="aws_architect">AWS Solutions Architect</option>
+                        </optgroup>
+                        <optgroup label="Healthcare">
+                            <option value="danb_rhs">DANB RHS</option>
+                            <option value="nha_cpt">NHA Phlebotomy Tech (CPT)</option>
+                            <option value="nha_ccma">NHA Medical Assistant (CCMA)</option>
+                            <option value="nha_cpct">NHA Patient Care Tech (CPCT)</option>
+                            <option value="nha_cpht">NHA Pharmacy Tech (CPhT)</option>
+                        </optgroup>
+                        <optgroup label="Skilled Trades">
+                            <option value="ase">ASE Auto/Truck Certifications</option>
+                            <option value="hvac">HVAC Excellence</option>
+                        </optgroup>
+                        <optgroup label="Management & Safety">
+                            <option value="pmi">PMI (PMP/CAPM)</option>
+                            <option value="iaem">Emergency Mgmt (AEM/CEM)</option>
+                        </optgroup>
+                    </select>
+                    <p style="font-size: 12px; color: #64748b; margin-top: 5px;">Hold Ctrl (Windows) or Cmd (Mac) to select multiple</p>
+                </div>
+                
+                <div id="statsBox" class="stats-box hidden">
+                    <h4>📈 Career Outlook Data</h4>
+                    <div class="stat-item">
+                        <span class="stat-label">Annual Openings:</span>
+                        <span class="stat-value" id="statOpenings">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Median Wage:</span>
+                        <span class="stat-value" id="statWage">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Growth (2024-34):</span>
+                        <span class="stat-value" id="statGrowth">-</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Company Logo (Optional):</label>
+                    <div class="logo-upload" id="logoUpload" onclick="document.getElementById('logoInput').click()">
+                        <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="handleLogoUpload(event)">
+                        <div id="logoPreviewContainer">
+                            <p class="upload-text">📤 Click to upload logo</p>
+                            <p class="upload-text" style="font-size: 11px; margin-top: 5px;">PNG, JPG (max 2MB)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="companyName">Company/Organization:</label>
+                    <input type="text" id="companyName" placeholder="e.g., Tech Solutions Inc.">
+                </div>
+                
+                <div class="form-group">
+                    <label for="companyAddress">Address (Optional):</label>
+                    <textarea id="companyAddress" placeholder="123 Main Street&#10;City, State ZIP"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactName">Your Name:</label>
+                    <input type="text" id="contactName" placeholder="e.g., John Smith">
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactTitle">Your Title:</label>
+                    <input type="text" id="contactTitle" placeholder="e.g., Chief Technology Officer">
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactEmail">Your Email:</label>
+                    <input type="email" id="contactEmail" placeholder="e.g., john.smith@company.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactPhone">Your Phone (Optional):</label>
+                    <input type="tel" id="contactPhone" placeholder="e.g., (555) 123-4567">
+                </div>
+                
+                <button class="btn-primary" onclick="generateLetter()">📝 Generate Letter</button>
+                <button class="btn-secondary" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+                <button class="btn-email" onclick="sendEmail()">📧 Email Letter</button>
+                <button class="btn-download" onclick="downloadPDF()">💾 Download as PDF</button>
+            </div>
+            
+            <div class="main-content">
+                <div id="successMessage" class="success-message hidden">
+                    ✅ Letter generated successfully!
+                </div>
+                
+                <div id="letterPreview" class="letter-preview empty">
+                    <p>👈 Fill out the form on the left and click "Generate Letter" to create your customized support letter.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentLogoDataUrl = null;
+        
+        const credentialData = {
+            autodesk: {
+                title: "Autodesk Certified Professional: 3ds Max",
+                fullTitle: "Autodesk Certified Professional: 3ds Max",
+                cluster: "Arts, Media & Communication",
+                stats: { openings: "5,000", wage: "$99,800", growth: "2%" },
+                occupation: "special effects artists and animators",
+                template: (data) => `
+<div class="letterhead">
+    ${data.logo ? `<img src="${data.logo}" alt="Company Logo">` : ''}
+    <h2>${data.company}</h2>
+    ${data.address ? `<p class="letterhead-text">${data.address.replace(/\n/g, '<br>')}</p>` : ''}
+</div>
+
+<div class="letter-date">
+    ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+</div>
+
+<div class="letter-address">
+    <p>Maryland Blueprint CTE Committee<br>
+    Maryland State Department of Education<br>
+    200 W. Baltimore Street<br>
+    Baltimore, MD 21201</p>
+</div>
+
+<p>Dear Members of the Maryland Blueprint CTE Committee,</p>
+
+<div class="letter-body">
+    <p>I am writing on behalf of <strong>${data.company}</strong> to express our support for the recognition of the <strong>Autodesk Certified Professional: 3ds Max</strong> as an Industry-Recognized Credential (IRC) in Maryland's public schools.</p>
+    
+    <p><strong>STRONG CAREER OUTLOOK:</strong> According to the U.S. Bureau of Labor Statistics 2024 employment projections, special effects artists and animators—the primary career pathway for 3ds Max professionals—have approximately <strong>5,000 annual job openings</strong> nationally with a median annual wage of <strong>$99,800</strong> (more than double the national median wage of $49,500). With 2% projected growth from 2024-2034, this field offers Maryland students access to high-wage creative technology careers. Film production, video games, and architectural visualization industries show sustained demand for 3D animation expertise.</p>
+    
+    <p>${data.company} operates in the architecture/media/design sector, where 3D visualization and animation capabilities are essential to our competitive positioning. We utilize 3ds Max for architectural renderings, product visualization, and animation projects, and professionals with this certification demonstrate immediate workplace readiness.</p>
+    
+    <p>At ${data.company}, individuals holding the Autodesk Certified Professional: 3ds Max demonstrate:</p>
+    <ul>
+        <li>Advanced technical proficiency in 3D modeling, texturing, and rendering</li>
+        <li>Industry-standard workflows that translate directly to production environments</li>
+        <li>Proven commitment to professional development in rapidly evolving creative technology</li>
+    </ul>
+    
+    <p><strong>We actively look for the Autodesk Certified Professional: 3ds Max certification when hiring</strong> for positions requiring 3D visualization and animation capabilities. This credential provides immediate validation of candidate capabilities and significantly influences our hiring decisions.</p>
+    
+    <p>Recognizing this credential as an IRC will:</p>
+    <ul>
+        <li>Strengthen Maryland's talent pipeline for high-wage creative technology careers</li>
+        <li>Align CTE programs with current industry expectations in animation and visualization</li>
+        <li>Support Maryland's economic development in digital media sectors</li>
+        <li>Provide students with credentials valued across entertainment, architecture, and product design industries</li>
+    </ul>
+    
+    <p>Students who earn the Autodesk Certified Professional: 3ds Max are positioned to succeed in careers within <strong>Arts, Media & Communication</strong>. We respectfully encourage the Committee to include this credential among Maryland's approved IRCs.</p>
+    
+    <p>Thank you for your consideration.</p>
+</div>
+
+<div class="letter-signature">
+    <p>Sincerely,</p>
+    <p><strong>${data.contactName}</strong><br>
+    ${data.contactTitle}<br>
+    ${data.company}<br>
+    ${data.contactEmail}${data.contactPhone ? '<br>' + data.contactPhone : ''}</p>
+</div>
+`
+            },
+            finalcut: {
+                title: "Apple Certified Pro: Final Cut Pro",
+                fullTitle: "Apple Certified Pro: Final Cut Pro",
+                cluster: "Arts, Media & Communication",
+                stats: { openings: "6,400", wage: "$70,980", growth: "3%" },
+                occupation: "film and video editors",
+                template: (data) => `
+<div class="letterhead">
+    ${data.logo ? `<img src="${data.logo}" alt="Company Logo">` : ''}
+    <h2>${data.company}</h2>
+    ${data.address ? `<p class="letterhead-text">${data.address.replace(/\n/g, '<br>')}</p>` : ''}
+</div>
+
+<div class="letter-date">
+    ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+</div>
+
+<div class="letter-address">
+    <p>Maryland Blueprint CTE Committee<br>
+    Maryland State Department of Education<br>
+    200 W. Baltimore Street<br>
+    Baltimore, MD 21201</p>
+</div>
+
+<p>Dear Members of the Maryland Blueprint CTE Committee,</p>
+
+<div class="letter-body">
+    <p>I am writing on behalf of <strong>${data.company}</strong> to express our support for the recognition of the <strong>Apple Certified Pro: Final Cut Pro</strong> as an Industry-Recognized Credential (IRC) in Maryland's public schools.</p>
+    
+    <p><strong>GROWING INDUSTRY DEMAND:</strong> According to the U.S. Bureau of Labor Statistics 2024 employment projections, film and video editors have approximately <strong>6,400 annual job openings</strong> nationally with a median annual wage of <strong>$70,980</strong>. With 3% projected growth from 2024-2034, this career pathway offers Maryland students access to competitive media production careers. The expansion of streaming content, corporate video, and digital marketing continues to drive strong demand for professional video editing expertise across all industry sectors.</p>
+    
+    <p>${data.company} operates in the media/marketing/communications sector, where professional video editing is critical to our content strategy. We rely on Final Cut Pro for content production, client deliverables, and marketing campaigns, and professionals with this certification bring immediate production capability.</p>
+    
+    <p>At ${data.company}, individuals holding the Apple Certified Pro: Final Cut Pro demonstrate:</p>
+    <ul>
+        <li>Professional-grade video editing skills using industry-standard software</li>
+        <li>Efficient workflow management for time-sensitive projects</li>
+        <li>Technical expertise in color grading, audio mixing, and effects integration</li>
+    </ul>
+    
+    <p><strong>We actively look for the Apple Certified Pro: Final Cut Pro certification when hiring</strong> for video production and editing positions. This credential provides immediate validation of professional editing capabilities and significantly influences our hiring decisions.</p>
+    
+    <p>Recognizing this credential as an IRC will:</p>
+    <ul>
+        <li>Strengthen Maryland's talent pipeline for media production careers</li>
+        <li>Align CTE programs with current industry standards in video editing</li>
+        <li>Support Maryland's economic development in digital media and communications</li>
+        <li>Provide students with credentials valued across entertainment, corporate, and marketing sectors</li>
+    </ul>
+    
+    <p>Students who earn the Apple Certified Pro: Final Cut Pro are positioned to succeed in careers within <strong>Arts, Media & Communication</strong>. We respectfully encourage the Committee to include this credential among Maryland's approved IRCs.</p>
+    
+    <p>Thank you for your consideration.</p>
+</div>
+
+<div class="letter-signature">
+    <p>Sincerely,</p>
+    <p><strong>${data.contactName}</strong><br>
+    ${data.contactTitle}<br>
+    ${data.company}<br>
+    ${data.contactEmail}${data.contactPhone ? '<br>' + data.contactPhone : ''}</p>
+</div>
+`
+            },
+            azure: {
+                title: "Azure Data Scientist Associate",
+                fullTitle: "Microsoft Certified: Azure Data Scientist Associate",
+                cluster: "Digital Technology",
+                stats: { openings: "23,400", wage: "$112,590", growth: "34%" },
+                occupation: "data scientists",
+                template: (data) => `
+<div class="letterhead">
+    ${data.logo ? `<img src="${data.logo}" alt="Company Logo">` : ''}
+    <h2>${data.company}</h2>
+    ${data.address ? `<p class="letterhead-text">${data.address.replace(/\n/g, '<br>')}</p>` : ''}
+</div>
+
+<div class="letter-date">
+    ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+</div>
+
+<div class="letter-address">
+    <p>Maryland Blueprint CTE Committee<br>
+    Maryland State Department of Education<br>
+    200 W. Baltimore Street<br>
+    Baltimore, MD 21201</p>
+</div>
+
+<p>Dear Members of the Maryland Blueprint CTE Committee,</p>
+
+<div class="letter-body">
+    <p>I am writing on behalf of <strong>${data.company}</strong> to express our support for the recognition of the <strong>Microsoft Certified: Azure Data Scientist Associate</strong> as an Industry-Recognized Credential (IRC) in Maryland's public schools.</p>
+    
+    <p><strong>EXCEPTIONAL CAREER OUTLOOK:</strong> According to the U.S. Bureau of Labor Statistics 2024 employment projections, data scientists represent one of the fastest-growing occupations in America with <strong>34% projected growth from 2024-2034</strong>—over 11 times faster than the average for all occupations. With approximately <strong>23,400 annual job openings</strong> and a median annual wage of <strong>$112,590</strong> (more than double the national median wage), data science careers offer Maryland students exceptional economic opportunity. This is the fourth fastest-growing occupation in the entire U.S. economy, driven by exponential growth in data-driven decision-making across all industry sectors.</p>
+    
+    <p>${data.company} operates in the technology/healthcare/finance sector, where data science and Azure machine learning capabilities are critical to our competitive advantage. We deploy Azure cloud infrastructure for data analysis, predictive modeling, and business intelligence, requiring team members who understand modern data science workflows.</p>
+    
+    <p>At ${data.company}, individuals holding the Microsoft Certified: Azure Data Scientist Associate demonstrate:</p>
+    <ul>
+        <li>Strong technical proficiency with Azure Machine Learning, cloud-based analytics platforms, and data modeling</li>
+        <li>Proven commitment to professional development in rapidly evolving technology fields</li>
+        <li>Practical problem-solving skills in real-world data science and machine learning projects</li>
+    </ul>
+    
+    <p><strong>We actively look for the Microsoft Certified: Azure Data Scientist Associate certification when hiring</strong> for data science and analytics positions. This credential demonstrates validated expertise with the Azure platform we use daily and significantly influences our hiring decisions.</p>
+    
+    <p>Recognizing this credential as an IRC will:</p>
+    <ul>
+        <li>Strengthen Maryland's talent pipeline for high-demand, high-wage technology careers</li>
+        <li>Align CTE programs with current industry expectations in data science and analytics</li>
+        <li>Support Maryland's economic development in technology sectors</li>
+        <li>Provide students with credentials valued across healthcare, finance, government, and technology industries</li>
+    </ul>
+    
+    <p>Students who earn the Microsoft Certified: Azure Data Scientist Associate are positioned to succeed in careers within <strong>Digital Technology</strong>. We respectfully encourage the Committee to include this credential among Maryland's approved IRCs.</p>
+    
+    <p>Thank you for your consideration.</p>
+</div>
+
+<div class="letter-signature">
+    <p>Sincerely,</p>
+    <p><strong>${data.contactName}</strong><br>
+    ${data.contactTitle}<br>
+    ${data.company}<br>
+    ${data.contactEmail}${data.contactPhone ? '<br>' + data.contactPhone : ''}</p>
+</div>
+`
+            },
+            comptia_security: {
+                title: "CompTIA Security+",
+                fullTitle: "CompTIA Security+",
+                cluster: "Digital Technology",
+                stats: { openings: "16,000", wage: "$124,910", growth: "29%" },
+                occupation: "information security analysts",
+                template: (data) => `
+<div class="letterhead">
+    ${data.logo ? `<img src="${data.logo}" alt="Company Logo">` : ''}
+    <h2>${data.company}</h2>
+    ${data.address ? `<p class="letterhead-text">${data.address.replace(/\n/g, '<br>')}</p>` : ''}
+</div>
+
+<div class="letter-date">
+    ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+</div>
+
+<div class="letter-address">
+    <p>Maryland Blueprint CTE Committee<br>
+    Maryland State Department of Education<br>
+    200 W. Baltimore Street<br>
+    Baltimore, MD 21201</p>
+</div>
+
+<p>Dear Members of the Maryland Blueprint CTE Committee,</p>
+
+<div class="letter-body">
+    <p>I am writing on behalf of <strong>${data.company}</strong> to express our support for the recognition of the <strong>CompTIA Security+</strong> certification as an Industry-Recognized Credential (IRC) in Maryland's public schools.</p>
+    
+    <p><strong>EXPLOSIVE CAREER GROWTH:</strong> According to the U.S. Bureau of Labor Statistics 2024 employment projections, information security analysts represent one of the fastest-growing occupations with <strong>29% projected growth from 2024-2034</strong>—nearly 10 times faster than the average for all occupations. With approximately <strong>16,000 annual job openings</strong> and a median annual wage of <strong>$124,910</strong> (more than 2.5 times the national median), cybersecurity careers offer Maryland students exceptional economic opportunity. The increasing frequency and sophistication of cyberattacks creates urgent and sustained demand for cybersecurity professionals.</p>
+    
+    <p>${data.company} operates in sectors where cybersecurity is paramount to protecting our operations and client data. We rely on CompTIA Security+ certified professionals for security operations, threat monitoring, and compliance, and this certification is often our baseline requirement for security-related positions.</p>
+    
+    <p>At ${data.company}, individuals holding CompTIA Security+ certification demonstrate:</p>
+    <ul>
+        <li>Comprehensive understanding of cybersecurity principles, threat detection, and risk management</li>
+        <li>Practical skills in implementing security controls and responding to incidents</li>
+        <li>Vendor-neutral expertise that meets Department of Defense and government security requirements</li>
+    </ul>
+    
+    <p><strong>We actively look for CompTIA Security+ certification when hiring</strong> for all security-related positions. This credential is often our baseline requirement and provides immediate validation of cybersecurity competency that significantly influences our hiring decisions.</p>
+    
+    <p>Recognizing this credential as an IRC will:</p>
+    <ul>
+        <li>Strengthen Maryland's talent pipeline for high-demand, high-wage cybersecurity careers</li>
+        <li>Align CTE programs with urgent national security workforce needs</li>
+        <li>Support Maryland's economic development in cybersecurity and technology sectors</li>
+        <li>Provide students with DoD 8570-compliant credentials opening government career pathways</li>
+    </ul>
+    
+    <p>Students who earn CompTIA Security+ certification are positioned to succeed in careers within <strong>Digital Technology</strong>. We respectfully encourage the Committee to include this credential among Maryland's approved IRCs.</p>
+    
+    <p>Thank you for your consideration.</p>
+</div>
+
+<div class="letter-signature">
+    <p>Sincerely,</p>
+    <p><strong>${data.contactName}</strong><br>
+    ${data.contactTitle}<br>
+    ${data.company}<br>
+    ${data.contactEmail}${data.contactPhone ? '<br>' + data.contactPhone : ''}</p>
+</div>
+`
+            },
+            pmi: {
+                title: "PMI (PMP/CAPM)",
+                fullTitle: "Project Management Professional (PMP) / Certified Associate in Project Management (CAPM)",
+                cluster: "Management",
+                stats: { openings: "78,200", wage: "$100,750", growth: "6%" },
+                occupation: "project management specialists",
+                template: (data) => `
+<div class="letterhead">
+    ${data.logo ? `<img src="${data.logo}" alt="Company Logo">` : ''}
+    <h2>${data.company}</h2>
+    ${data.address ? `<p class="letterhead-text">${data.address.replace(/\n/g, '<br>')}</p>` : ''}
+</div>
+
+<div class="letter-date">
+    ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+</div>
+
+<div class="letter-address">
+    <p>Maryland Blueprint CTE Committee<br>
+    Maryland State Department of Education<br>
+    200 W. Baltimore Street<br>
+    Baltimore, MD 21201</p>
+</div>
+
+<p>Dear Members of the Maryland Blueprint CTE Committee,</p>
+
+<div class="letter-body">
+    <p>I am writing on behalf of <strong>${data.company}</strong> to express our support for the recognition of the <strong>Project Management Professional (PMP)</strong> and <strong>Certified Associate in Project Management (CAPM)</strong> certifications as Industry-Recognized Credentials (IRC) in Maryland's public schools.</p>
+    
+    <p><strong>STRONG CAREER OUTLOOK:</strong> According to the U.S. Bureau of Labor Statistics 2024 employment projections, project management specialists have approximately <strong>78,200 annual job openings</strong> nationally with a median annual wage of <strong>$100,750</strong> (more than double the national median). With 6% projected growth from 2024-2034 (faster than average), project management offers Maryland students access to high-wage careers across all industry sectors. PMI research shows PMP-certified professionals earn 33% more on average than non-certified project managers.</p>
+    
+    <p>${data.company} operates in sectors where effective project management is critical to delivering results on time and within budget. We utilize PMI-certified project managers for project leadership, program coordination, and strategic initiatives, and these certifications demonstrate the professional competency we require.</p>
+    
+    <p>At ${data.company}, individuals holding PMI certifications demonstrate:</p>
+    <ul>
+        <li>Comprehensive understanding of project management methodologies and best practices</li>
+        <li>Proven ability to manage scope, schedule, budget, and stakeholder expectations</li>
+        <li>Commitment to professional development in the world's most recognized PM framework</li>
+    </ul>
+    
+    <p><strong>We actively look for PMP and CAPM certifications when hiring</strong> for project management roles. These credentials provide immediate validation of project management competency and significantly influence our hiring decisions for leadership positions.</p>
+    
+    <p>Recognizing these credentials as IRCs will:</p>
+    <ul>
+        <li>Strengthen Maryland's talent pipeline for high-wage project management careers</li>
+        <li>Align CTE programs with globally-recognized project management standards</li>
+        <li>Support Maryland students in accessing leadership opportunities across all industries</li>
+        <li>Provide students with credentials that command salary premiums and career advancement</li>
+    </ul>
+    
+    <p>Students who earn PMI certifications are positioned to succeed in careers across multiple career clusters. We respectfully encourage the Committee to include these credentials among Maryland's approved IRCs.</p>
+    
+    <p>Thank you for your consideration.</p>
+</div>
+
+<div class="letter-signature">
+    <p>Sincerely,</p>
+    <p><strong>${data.contactName}</strong><br>
+    ${data.contactTitle}<br>
+    ${data.company}<br>
+    ${data.contactEmail}${data.contactPhone ? '<br>' + data.contactPhone : ''}</p>
+</div>
+`
+            },
+            hvac: {
+                title: "HVAC Excellence",
+                fullTitle: "HVAC Excellence Certifications",
+                cluster: "Architecture & Construction",
+                stats: { openings: "40,100", wage: "$59,810", growth: "8%" },
+                occupation: "HVAC technicians",
+                template: (data) => `
+<div class="letterhead">
+    ${data.logo ? `<img src="${data.logo}" alt="Company Logo">` : ''}
+    <h2>${data.company}</h2>
+    ${data.address ? `<p class="letterhead-text">${data.address.replace(/\n/g, '<br>')}</p>` : ''}
+</div>
+
+<div class="letter-date">
+    ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+</div>
+
+<div class="letter-address">
+    <p>Maryland Blueprint CTE Committee<br>
+    Maryland State Department of Education<br>
+    200 W. Baltimore Street<br>
+    Baltimore, MD 21201</p>
+</div>
+
+<p>Dear Members of the Maryland Blueprint CTE Committee,</p>
+
+<div class="letter-body">
+    <p>I am writing on behalf of <strong>${data.company}</strong> to express our support for the recognition of <strong>HVAC Excellence Certifications</strong> as Industry-Recognized Credentials (IRC) in Maryland's public schools.</p>
+    
+    <p><strong>GROWING DEMAND FOR HVAC PROFESSIONALS:</strong> According to the U.S. Bureau of Labor Statistics 2024 employment projections, heating, air conditioning, and refrigeration mechanics and installers have approximately <strong>40,100 annual job openings</strong> nationally with a median annual wage of <strong>$59,810</strong>. With <strong>8% projected growth from 2024-2034 (much faster than average)</strong>, HVAC careers offer Maryland students access to stable, well-paying skilled trades. Growing emphasis on energy efficiency, climate control sophistication, and aging HVAC systems creates sustained demand for qualified technicians.</p>
+    
+    <p>${data.company} operates in the HVAC/construction/facilities management sector, where certified HVAC technicians are essential to our service delivery. We rely on HVAC Excellence certified professionals for installation, maintenance, repair, and system design, and these certifications validate the technical competencies and industry knowledge we require.</p>
+    
+    <p>At ${data.company}, individuals holding HVAC Excellence certifications demonstrate:</p>
+    <ul>
+        <li>Comprehensive technical knowledge of heating, cooling, and refrigeration systems</li>
+        <li>Proven competency through industry-recognized assessment and certification</li>
+        <li>Commitment to safety, efficiency, and professional HVAC practice</li>
+    </ul>
+    
+    <p><strong>We actively look for HVAC Excellence certifications when hiring</strong> HVAC technicians. These credentials provide immediate validation of technical competency and significantly influence our hiring decisions for installation, maintenance, and repair positions.</p>
+    
+    <p>Recognizing these credentials as IRCs will:</p>
+    <ul>
+        <li>Strengthen Maryland's talent pipeline for high-demand HVAC careers</li>
+        <li>Align CTE programs with industry-standard technical competencies</li>
+        <li>Support Maryland's economic development in construction and skilled trades</li>
+        <li>Provide students with credentials recognized by employers and state licensing boards</li>
+    </ul>
+    
+    <p>Students who earn HVAC Excellence certifications are positioned to succeed in careers within <strong>Architecture & Construction</strong>. We respectfully encourage the Committee to include these credentials among Maryland's approved IRCs.</p>
+    
+    <p>Thank you for your consideration.</p>
+</div>
+
+<div class="letter-signature">
+    <p>Sincerely,</p>
+    <p><strong>${data.contactName}</strong><br>
+    ${data.contactTitle}<br>
+    ${data.company}<br>
+    ${data.contactEmail}${data.contactPhone ? '<br>' + data.contactPhone : ''}</p>
+</div>
+`
+            }
+        };
+        
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('File size must be less than 2MB');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentLogoDataUrl = e.target.result;
+                    document.getElementById('logoPreviewContainer').innerHTML = `
+                        <img src="${e.target.result}" class="logo-preview" alt="Logo Preview">
+                        <p class="upload-text" style="margin-top: 10px;">✓ Logo uploaded</p>
+                    `;
+                    document.getElementById('logoUpload').classList.add('has-logo');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function generateLetter() {
+            const credentialSelect = document.getElementById('credential');
+            const selectedOptions = Array.from(credentialSelect.selectedOptions).map(opt => opt.value);
+            const companyName = document.getElementById('companyName').value.trim();
+            const contactName = document.getElementById('contactName').value.trim();
+            const contactTitle = document.getElementById('contactTitle').value.trim();
+            const contactEmail = document.getElementById('contactEmail').value.trim();
+            
+            if (selectedOptions.length === 0) {
+                alert('Please select at least one credential');
+                return;
+            }
+            
+            if (!companyName || !contactName || !contactTitle || !contactEmail) {
+                alert('Please fill in all required fields (Company, Name, Title, Email)');
+                return;
+            }
+            
+            const letterData = {
+                logo: currentLogoDataUrl,
+                company: companyName,
+                address: document.getElementById('companyAddress').value.trim(),
+                contactName: contactName,
+                contactTitle: contactTitle,
+                contactEmail: contactEmail,
+                contactPhone: document.getElementById('contactPhone').value.trim()
+            };
+            
+            let letterHtml;
+            
+            // If multiple credentials selected, generate combined letter
+            if (selectedOptions.length > 1) {
+                letterHtml = generateMultiCredentialLetter(selectedOptions, letterData);
+            } else {
+                const credData = credentialData[selectedOptions[0]];
+                if (!credData) {
+                    alert('Template not found for selected credential');
+                    return;
+                }
+                letterHtml = credData.template(letterData);
+                
+                // Update stats for single credential
+                document.getElementById('statOpenings').textContent = credData.stats.openings;
+                document.getElementById('statWage').textContent = credData.stats.wage;
+                document.getElementById('statGrowth').textContent = credData.stats.growth;
+                document.getElementById('statsBox').classList.remove('hidden');
+            }
+            
+            const preview = document.getElementById('letterPreview');
+            preview.innerHTML = letterHtml;
+            preview.classList.remove('empty');
+            
+            // Hide stats for multiple credentials
+            if (selectedOptions.length > 1) {
+                document.getElementById('statsBox').classList.add('hidden');
+            }
+            
+            // Show success message
+            const successMsg = document.getElementById('successMessage');
+            successMsg.textContent = selectedOptions.length > 1 
+                ? `✅ Combined letter for ${selectedOptions.length} credentials generated!`
+                : '✅ Letter generated successfully!';
+            successMsg.classList.remove('hidden');
+            setTimeout(() => successMsg.classList.add('hidden'), 3000);
+            
+            // Scroll to preview on mobile
+            if (window.innerWidth <= 968) {
+                preview.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        function generateMultiCredentialLetter(credentials, data) {
+            const credList = credentials.map(c => credentialData[c]).filter(Boolean);
+            const credNames = credList.map(c => c.fullTitle).join(', ');
+            const credBullets = credList.map(c => `<li><strong>${c.fullTitle}</strong></li>`).join('\n');
+            
+            return `
+<div class="letterhead">
+    ${data.logo ? `<img src="${data.logo}" alt="Company Logo">` : ''}
+    <h2>${data.company}</h2>
+    ${data.address ? `<p class="letterhead-text">${data.address.replace(/\n/g, '<br>')}</p>` : ''}
+</div>
+
+<div class="letter-date">
+    ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+</div>
+
+<div class="letter-address">
+    <p>Maryland Blueprint CTE Committee<br>
+    Maryland State Department of Education<br>
+    200 W. Baltimore Street<br>
+    Baltimore, MD 21201</p>
+</div>
+
+<p>Dear Members of the Maryland Blueprint CTE Committee,</p>
+
+<div class="letter-body">
+    <p>I am writing on behalf of <strong>${data.company}</strong> to express our support for the recognition of the following Industry-Recognized Credentials (IRCs) in Maryland's public schools:</p>
+    
+    <ul>
+        ${credBullets}
+    </ul>
+    
+    <p>${data.company} operates in sectors where these professional certifications are critical to our workforce quality and operational excellence. Our experience with certified professionals across these credential areas has consistently demonstrated their value in the workplace.</p>
+    
+    <p><strong>We actively look for these certifications when hiring.</strong> Candidates who hold these credentials demonstrate:</p>
+    <ul>
+        <li>Technical proficiency and industry-standard knowledge verified through rigorous assessment</li>
+        <li>Commitment to professional development and continuing education</li>
+        <li>Immediate workplace readiness and reduced training time</li>
+        <li>Proven competency that translates directly to job performance</li>
+    </ul>
+    
+    <p>At ${data.company}, these certifications provide significant competitive advantage during our hiring process. We prioritize candidates with these credentials because they demonstrate validated skills that align with our operational needs and industry standards.</p>
+    
+    <p>Recognizing these credentials as IRCs will:</p>
+    <ul>
+        <li>Strengthen Maryland's talent pipeline for high-demand careers across multiple sectors</li>
+        <li>Align CTE programs with current industry expectations and hiring requirements</li>
+        <li>Support Maryland's economic development by producing job-ready graduates</li>
+        <li>Provide students with portable, nationally-recognized credentials valued by employers</li>
+    </ul>
+    
+    <p>We strongly support the inclusion of these credentials among Maryland's approved IRCs and believe they will significantly benefit students pursuing careers in their respective fields.</p>
+    
+    <p>Thank you for your consideration.</p>
+</div>
+
+<div class="letter-signature">
+    <p>Sincerely,</p>
+    <p><strong>${data.contactName}</strong><br>
+    ${data.contactTitle}<br>
+    ${data.company}<br>
+    ${data.contactEmail}${data.contactPhone ? '<br>' + data.contactPhone : ''}</p>
+</div>
+`;
+        }
+        
+        function copyToClipboard() {
+            const preview = document.getElementById('letterPreview');
+            if (preview.classList.contains('empty')) {
+                alert('Please generate a letter first');
+                return;
+            }
+            
+            const text = preview.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✓ Letter copied to clipboard!');
+            }).catch(err => {
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        }
+        
+        function sendEmail() {
+            const credentialSelect = document.getElementById('credential');
+            const selectedOptions = Array.from(credentialSelect.selectedOptions);
+            const preview = document.getElementById('letterPreview');
+            
+            if (selectedOptions.length === 0 || preview.classList.contains('empty')) {
+                alert('Please generate a letter first');
+                return;
+            }
+            
+            let subjectText;
+            if (selectedOptions.length === 1) {
+                const credData = credentialData[selectedOptions[0].value];
+                subjectText = `Letter of Support: ${credData.fullTitle}`;
+            } else {
+                const credNames = selectedOptions.map(opt => {
+                    const credData = credentialData[opt.value];
+                    return credData ? credData.title : opt.text;
+                }).join(', ');
+                subjectText = `Letter of Support: ${credNames}`;
+            }
+            
+            const body = preview.innerText;
+            const mailtoLink = `mailto:occpcteprograms@maryland.gov?subject=${encodeURIComponent(subjectText)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+        }
+        
+        function downloadPDF() {
+            const preview = document.getElementById('letterPreview');
+            if (preview.classList.contains('empty')) {
+                alert('Please generate a letter first');
+                return;
+            }
+            
+            alert('📄 To save as PDF:\n\n1. Click OK to open print dialog\n2. Select "Save as PDF" as printer\n3. Click Save\n\nNote: Your logo will be included if uploaded!');
+            window.print();
+        }
+        
+        // Update stats when credential changes
+        document.getElementById('credential').addEventListener('change', function() {
+            const selectedOptions = Array.from(this.selectedOptions).map(opt => opt.value);
+            
+            if (selectedOptions.length === 1 && credentialData[selectedOptions[0]]) {
+                const stats = credentialData[selectedOptions[0]].stats;
+                document.getElementById('statOpenings').textContent = stats.openings;
+                document.getElementById('statWage').textContent = stats.wage;
+                document.getElementById('statGrowth').textContent = stats.growth;
+                document.getElementById('statsBox').classList.remove('hidden');
+            } else if (selectedOptions.length > 1) {
+                document.getElementById('statsBox').classList.add('hidden');
+            } else {
+                document.getElementById('statsBox').classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
