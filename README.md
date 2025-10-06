@@ -284,12 +284,6 @@ Maryland State Department of Education
 
 ---
 
-## 📝 **License**
-
-This tool was created by the Maryland State Department of Education for public use in supporting Career and Technical Education programs.
-
----
-
 ## 🔄 **Version History**
 
 ### **v1.0 - October 2025**
@@ -329,18 +323,3 @@ This tool was created by the Maryland State Department of Education for public u
 - ✅ 80%+ of letters meet MSDE requirements (100% with this tool)
 - ✅ 50%+ response rate from business contacts
 - ✅ quick turnaround time for letter collection
-
-**Current Status:** Ready for deployment to 152 business contacts
-
----
-
-## 📞 **Questions?**
-
-For questions about:
-- **Tool functionality:** Contact William Forrester
-- **IRC requirements:** Contact Marquita Friday (marquita.friday@maryland.gov)
-- **Business outreach:** Coordinate with CTE team via shared tracking spreadsheet
-
----
-
-**🚀 Ready to deploy! Let's get those letters and support Maryland students!**
